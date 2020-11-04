@@ -28,6 +28,7 @@ jobs:
         for asset in ./bin/release/*.tar.gz; do
           assets+=("-a" "$asset")
         done
-        hub release create "${assets[@]}" -m "Version ${{ steps.get_version.outputs.VERSION }}" "${{ steps.get_version.outputs.VERSION }}"
+        tag_name="${GITHUB_REF##*/}"
+        hub release create "${assets[@]}" -m "Version ${{ steps.get_version.outputs.VERSION }}" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
